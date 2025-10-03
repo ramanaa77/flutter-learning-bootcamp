@@ -1,12 +1,18 @@
-# Flutter Learning Projects
+# Flutter Learning Bootcamp
 
-Hello! 👋  
+👋 Welcome!  
 
-I am currently learning **Flutter** and building projects to improve my skills.  
+This repo contains all the projects I built while following the Udemy course  
+**“The Complete Flutter Development Bootcamp with Dart.”**
 
-These projects have been **tested on Android, Web, and Windows platforms**.  
-I do not currently have the environment to run macOS, iOS, or Linux, so those platforms **have not been tested**.  
+These projects were created to practice Flutter development and improve my skills.  
+Currently, all projects have been **developed and tested on Android**.  
+Other platforms (iOS, Web, Windows, macOS, Linux) are included in the project folders by default but **have not been tested** yet.  
 
-The purpose of these projects is to **practice Flutter development** and showcase what I am learning.  
+## Projects Completed
 
-Thank you for visiting! 😊
+- [I Am Rich](./i_am_rich)
+- [I Am Poor](./i_am_poor)
+- [Mi Card](./mi_card_flutter)
+
+✨ More projects will be added as I progress in the course!
