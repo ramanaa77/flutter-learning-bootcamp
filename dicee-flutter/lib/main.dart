@@ -6,20 +6,29 @@ void main() {
       home: Scaffold(
         backgroundColor: Colors.red,
         appBar: AppBar(
-          title: Text('Dicee',style: TextStyle(color: Colors.white),),
+          title: const Center(
+              child: Text(
+            'Dicee',
+            style: TextStyle(color: Colors.white),
+          )),
           backgroundColor: Colors.red,
           elevation: 3,
           shadowColor: Colors.black,
         ),
-        body: DicePage(),
+        body: const DicePage(),
       ),
     ),
   );
 }
 
 class DicePage extends StatelessWidget {
+  const DicePage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Row(
+
+    );
   }
 }
+

@@ -14,6 +14,5 @@ Other platforms (iOS, Web, Windows, macOS, Linux) are included in the project fo
 - [I Am Rich](./i_am_rich)
 - [I Am Poor](./i_am_poor)
 - [Mi Card](./mi_card_flutter)
-- [Dicee](./dicee-flutter)
 
 ✨ More projects will be added as I progress in the course!
