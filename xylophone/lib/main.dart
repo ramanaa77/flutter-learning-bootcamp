@@ -18,7 +18,83 @@ class XylophoneApp extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: [
-
+              Expanded(
+                child: TextButton(
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                  onPressed: () {
+                    soundPlay(1);
+                  },
+                  child: Container(
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: TextButton(
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                  onPressed: () {
+                    soundPlay(2);
+                  },
+                  child: Container(
+                    color: Colors.orange,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: TextButton(
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                  onPressed: () {
+                    soundPlay(3);
+                  },
+                  child: Container(
+                    color: Colors.yellow,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: TextButton(
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                  onPressed: () {
+                    soundPlay(4);
+                  },
+                  child: Container(
+                    color: Colors.green,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: TextButton(
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                  onPressed: () {
+                    soundPlay(5);
+                  },
+                  child: Container(
+                    color: Colors.teal,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: TextButton(
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                  onPressed: () {
+                    soundPlay(6);
+                  },
+                  child: Container(
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: TextButton(
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                  onPressed: () {
+                    soundPlay(7);
+                  },
+                  child: Container(
+                    color: Colors.purple,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
