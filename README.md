@@ -16,5 +16,6 @@ Other platforms (iOS, Web, Windows, macOS, Linux) are included in the project fo
 - [Mi Card](./mi_card_flutter)
 - [Dicee](./dicee-flutter)
 - [Magic 8 Ball](./magic-8-ball-flutter)
+- [Xylophone](./xylophone)
 
 ✨ More projects will be added as I progress in the course!
