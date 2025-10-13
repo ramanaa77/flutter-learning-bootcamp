@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'quiz_brain.dart';
 
 QuizBrain quizBrain = QuizBrain();
@@ -34,6 +35,58 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getQuestionAnswer();
+    setState(() {
+      if (quizBrain.isFinished() == true) {
+        Alert(
+          context: context,
+          style: AlertStyle(
+            animationType: AnimationType.fromBottom,
+            isCloseButton: false,
+            isOverlayTapDismiss: false,
+            descStyle: TextStyle(fontWeight: FontWeight.bold),
+            descTextAlign: TextAlign.center,
+            animationDuration: Duration(milliseconds: 400),
+            alertBorder: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0.0),
+              side: BorderSide(
+                color: Colors.grey,
+              ),
+            ),
+            titleStyle: TextStyle(
+              color: Colors.green,
+            ),
+            alertAlignment: Alignment.center,
+          ),
+          type: AlertType.none,
+          title: "Quiz Finished",
+          desc: "You've reached the end of the quiz.",
+          buttons: [
+            DialogButton(
+              onPressed: () => Navigator.pop(context),
+              color: Colors.blue,
+              radius: BorderRadius.circular(0.0),
+              child: Text(
+                "Restart",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+          ],
+        ).show();
+        quizBrain.reset();
+        scoreKeeper = [];
+      } else {
+        if (userPickedAnswer == correctAnswer) {
+          scoreKeeper.add(Icon(Icons.check, color: Colors.green));
+        } else {
+          scoreKeeper.add(Icon(Icons.close, color: Colors.red));
+        }
+        quizBrain.nextQuestion();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -66,9 +119,7 @@ class _QuizPageState extends State<QuizPage> {
                 style: TextStyle(color: Colors.white, fontSize: 20.0),
               ),
               onPressed: () {
-                setState(() {
-                  quizBrain.getNumber();
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -86,9 +137,7 @@ class _QuizPageState extends State<QuizPage> {
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
               onPressed: () {
-                setState(() {
-                  quizBrain.getNumber();
-                });
+                checkAnswer(false);
               },
             ),
           ),
