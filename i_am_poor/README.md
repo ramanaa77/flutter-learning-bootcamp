@@ -2,4 +2,4 @@
 
 Successfully completed **I Am Poor** flutter project.
 
-![i am poor app](../screenshots/i_am_poor.png)
+<img src="../screenshots/i_am_poor.png" height="500">
