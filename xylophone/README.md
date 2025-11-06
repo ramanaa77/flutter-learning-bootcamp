@@ -2,4 +2,4 @@
 
 Successfully completed **Xylophone** flutter project.
 
-<img src="../screenshots/xylophone.png"/>
+<img src="../screenshots/xylophone.png" height="500"/>
