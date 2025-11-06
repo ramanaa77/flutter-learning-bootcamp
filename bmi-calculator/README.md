@@ -2,4 +2,4 @@
 
 Successfully completed **BMI Calculator** flutter project.
 
-<img src="../screenshots/bmi-calculator.gif" width="500" />
+<img src="../screenshots/bmi-calculator.gif" length="500" />
