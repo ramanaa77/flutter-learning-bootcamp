@@ -2,4 +2,4 @@
 
 Successfully completed **Mi Card** flutter project.
 
-![mi_card app](../screenshots/Mi-Card.png)
+<img src="../screenshots/Mi-Card.png" height="500"/>
