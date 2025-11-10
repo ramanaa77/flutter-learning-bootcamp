@@ -34,9 +34,7 @@ class _PriceScreenState extends State<PriceScreen> {
         onChanged: (value) {
           setState(() {
             selectedCurrency = value!;
-            getBTC();
-            getETH();
-            getLTC();
+            getData();
           });
         });
   }
@@ -51,9 +49,7 @@ class _PriceScreenState extends State<PriceScreen> {
         itemExtent: 32.0,
         onSelectedItemChanged: (selectedIndex) {
           selectedCurrency = currenciesList[selectedIndex];
-          getBTC();
-          getETH();
-          getLTC();
+          getData();
         },
         children: pickerItems);
   }
@@ -61,33 +57,21 @@ class _PriceScreenState extends State<PriceScreen> {
   @override
   void initState() {
     super.initState();
-    getBTC();
-    getETH();
-    getLTC();
+    getData();
   }
 
-  Future getBTC() async {
-    await getCryptoData('BTC');
-  }
-
-  Future getETH() async {
-    await getCryptoData('ETH');
-  }
-
-  Future getLTC() async {
-    await getCryptoData('LTC');
-  }
-
-  Future<void> getCryptoData(String cryptoType) async {
+  Future<void> getData() async {
     CoinData coinData = CoinData(
       selectedCurrency: selectedCurrency,
-      cryptoName: cryptoList[cryptoType] ?? '',
     );
     var coinValues = await coinData.getCoinData();
     setState(() {
-      cryptoValues['${cryptoList[cryptoType]}Rate'] =
-          coinValues[cryptoList[cryptoType]][selectedCurrency.toLowerCase()]
-              .toString();
+      cryptoValues['bitcoinRate'] =
+          coinValues['bitcoin'][selectedCurrency.toLowerCase()].toString();
+      cryptoValues['ethereumRate'] =
+          coinValues['ethereum'][selectedCurrency.toLowerCase()].toString();
+      cryptoValues['litecoinRate'] =
+          coinValues['litecoin'][selectedCurrency.toLowerCase()].toString();
     });
   }
 

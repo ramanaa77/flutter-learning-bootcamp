@@ -29,21 +29,21 @@ const List<String> currenciesList = [
   'ZAR'
 ];
 
-const Map<String, String> cryptoList = {
-  'BTC': 'bitcoin',
-  'ETH': 'ethereum',
-  'LTC': 'litecoin',
-};
+const List<String> cryptoList = [
+  'bitcoin',
+  'ethereum',
+  'litecoin',
+];
+final String cryptoIds = cryptoList.join(',');
 
 class CoinData {
   String selectedCurrency;
-  String cryptoName;
 
-  CoinData({required this.selectedCurrency, required this.cryptoName});
+  CoinData({required this.selectedCurrency});
 
   Future getCoinData() async {
     final url = Uri.parse(
-        '$coinURL?ids=$cryptoName&vs_currencies=$selectedCurrency&x_cg_demo_api_key=$apiKey');
+        '$coinURL?ids=$cryptoIds&vs_currencies=$selectedCurrency&x_cg_demo_api_key=$apiKey');
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {
       String data = response.body;
