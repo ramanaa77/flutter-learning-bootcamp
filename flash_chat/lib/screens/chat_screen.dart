@@ -3,6 +3,7 @@ import 'package:flash_chat/constants.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
+  static const String id = 'chat_screen';
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
