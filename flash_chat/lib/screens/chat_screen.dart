@@ -25,7 +25,6 @@ class _ChatScreenState extends State<ChatScreen> {
     try {
       if (user != null) {
         loggedInUser = user;
-        print(loggedInUser.email);
       }
     } catch (e) {
       print(e);
@@ -40,8 +39,14 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.close),
-              onPressed: () {
+              onPressed: () async {
                 //Implement logout functionality
+                await _auth.signOut();
+                if (mounted) {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                }
               }),
         ],
         title: Text('⚡️Chat'),
