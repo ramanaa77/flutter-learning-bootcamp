@@ -21,5 +21,6 @@ Other platforms (iOS, Web, Windows, macOS, Linux) are included in the project fo
 - [Destini](./destini)
 - [BMI Calculator](./bmi-calculator)
 - [Clima](./Clima)
+- [Bitcoin Ticker](./bitcoin_ticker)
 
 ✨ More projects will be added as I progress in the course!
