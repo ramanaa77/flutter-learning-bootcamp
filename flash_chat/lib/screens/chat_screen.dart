@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final _firestore = FirebaseFirestore.instance;
+late User loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -16,14 +18,12 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
-  late User loggedInUser;
   late String messageText;
 
   @override
   void initState() {
     super.initState();
     userCurrentUser();
-    messageStream();
   }
 
   void userCurrentUser() {
@@ -33,21 +33,8 @@ class _ChatScreenState extends State<ChatScreen> {
         loggedInUser = user;
       }
     } catch (e) {
-      print(e);
-    }
-  }
-
-  // void getMessage() async {
-  //   final messages = await _firestore.collection('messages').get();
-  //   for (var message in messages.docs){
-  //     print(message.data());
-  //   }
-  // }
-
-  void messageStream() async {
-    await for (var snapshot in _firestore.collection('messages').snapshots()) {
-      for (var message in snapshot.docs) {
-        print(message.data());
+      if (kDebugMode) {
+        print(e);
       }
     }
   }
@@ -60,14 +47,14 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: <Widget>[
           IconButton(
               icon: Icon(Icons.close),
-              onPressed: () {
+              onPressed: () async {
                 //Implement logout functionality
-                // await _auth.signOut();
-                // if (mounted) {
-                //   setState(() {
-                //     Navigator.pop(context);
-                //   });
-                // }
+                await _auth.signOut();
+                if (mounted) {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                }
               }),
         ],
         title: Text('⚡️Chat'),
@@ -99,6 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       _firestore.collection('messages').add({
                         'text': messageText,
                         'sender': loggedInUser.email,
+                        'timestamp': FieldValue.serverTimestamp(),
                       });
                     },
                     child: Text(
@@ -122,7 +110,8 @@ class MessageStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: _firestore.collection('messages').snapshots(),
+        stream:
+            _firestore.collection('messages').orderBy('timestamp').snapshots(),
         builder: (context, snapshot) {
           List<MessageBubble> messageBubbles = [];
           if (!snapshot.hasData) {
@@ -132,18 +121,24 @@ class MessageStream extends StatelessWidget {
               ),
             );
           }
-          final messages = snapshot.data?.docs;
+          final messages = snapshot.data?.docs.reversed;
           for (var message in messages!) {
             final data = message.data() as Map<String, dynamic>;
             final messageText = data['text'];
             final messageSender = data['sender'];
-            final messageBubble =
-                MessageBubble(text: messageText, sender: messageSender);
+            final currentUser = loggedInUser.email;
+
+            final messageBubble = MessageBubble(
+              text: messageText,
+              sender: messageSender,
+              isMe: currentUser == messageSender,
+            );
             messageBubbles.add(messageBubble);
           }
 
           return Expanded(
             child: ListView(
+              reverse: true,
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
               children: messageBubbles,
             ),
@@ -153,16 +148,22 @@ class MessageStream extends StatelessWidget {
 }
 
 class MessageBubble extends StatelessWidget {
-  const MessageBubble({super.key, required this.text, required this.sender});
+  const MessageBubble(
+      {super.key,
+      required this.text,
+      required this.sender,
+      required this.isMe});
   final String text;
   final String sender;
+  final bool isMe;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Text(
             sender,
@@ -173,15 +174,23 @@ class MessageBubble extends StatelessWidget {
           ),
           Material(
             elevation: 5,
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.lightBlueAccent,
+            borderRadius: isMe
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                    bottomLeft: Radius.circular(30))
+                : BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30)),
+            color: isMe ? Colors.lightBlueAccent : Colors.white,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Text(
                 text,
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.white,
+                  color: isMe ? Colors.white : Colors.black,
                 ),
               ),
             ),
