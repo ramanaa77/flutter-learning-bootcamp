@@ -22,5 +22,5 @@ Other platforms (iOS, Web, Windows, macOS, Linux) are included in the project fo
 - [BMI Calculator](./bmi-calculator)
 - [Clima](./Clima)
 - [Bitcoin Ticker](./bitcoin_ticker)
-
-✨ More projects will be added as I progress in the course!
+- [Flash Chat](./flash_chat)
+- [Todoey](./todoey)
